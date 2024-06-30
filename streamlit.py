@@ -39,14 +39,14 @@ df = df[df['HS_CODE'].replace('', np.nan).notna()]
 # similar_id = find_similar(no_ident, nm_penerima, al_penerima, df, model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address)
 # similarity_penerima = similar_id[similar_id['Similarity (%)'] > 60].head(10) # get similar_id that Similarity (%) > 0.6   
 
-## Mencari kesesuaian HS Code dengan Nama Produk
-df_hs = pd.read_csv('./data/hs_code_not_clean_id.csv', dtype=str)
-df_hs_results = get_similarity(similar_id, sentence_model, df_hs)
+# ## Mencari kesesuaian HS Code dengan Nama Produk
+# df_hs = pd.read_csv('./data/hs_code_not_clean_id.csv', dtype=str)
+# df_hs_results = get_similarity(similar_id, sentence_model, df_hs)
 
-## Mencari range harga berdasarkan uraian produk
-range_harga = get_range(uraian_barang, df, model_uraian, vectorizer_uraian, sentence_model)
-min_harga = range_harga[0]
-max_harga = range_harga[1]
+# ## Mencari range harga berdasarkan uraian produk
+# range_harga = get_range(uraian_barang, df, model_uraian, vectorizer_uraian, sentence_model)
+# min_harga = range_harga[0]
+# max_harga = range_harga[1]
 
 # Predict button in sidebar
 if st.sidebar.button('Predict'):
