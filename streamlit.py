@@ -10,7 +10,7 @@ from price_range import get_range
 
 # Load data
 df = load_data('data/cn1.csv')
-df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+df = df.DataFrame.map(lambda x: x.strip() if isinstance(x, str) else x)
 df = df[df['HS_CODE'].replace('', np.nan).notna()]
 
 # def main ():
