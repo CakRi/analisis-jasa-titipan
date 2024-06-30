@@ -20,10 +20,18 @@ st.title('ANALISA JASA TITIPAN')
 # A simple text
 st.write('Creating a Better CN Through Data')
 
+# Input from user
+st.sidebar.title('Similar Importir')
+no_ident = st.sidebar.text_input ('NO_IDENTITAS')
+nm_penerima = st.sidebar.text_input('NAMA')
+al_penerima = st.sidebar.text_input('ALAMAT PENERIMA')
+uraian_barang = st.sidebar.text_input('URAIAN BARANG')
+
 # Load data
 df = load_data('./data/cn1.csv')
 df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
 df = df[df['HS_CODE'].replace('', np.nan).notna()]
+
 
 # Function
 ## Mencari Kemiripan Importir
@@ -41,12 +49,7 @@ range_harga = get_range(uraian_barang, df, model_uraian, vectorizer_uraian, sent
 min_harga = range_harga[0]
 max_harga = range_harga[1]
 
-# Input from user
-st.sidebar.title('Similar Importir')
-no_ident = st.sidebar.text_input ('NO_IDENTITAS')
-nm_penerima = st.sidebar.text_input('NAMA')
-al_penerima = st.sidebar.text_input('ALAMAT PENERIMA')
-uraian_barang = st.sidebar.text_input('URAIAN BARANG')
+
 
 # Predict button in sidebar
 if st.sidebar.button('Predict'):
