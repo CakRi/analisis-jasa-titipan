@@ -52,11 +52,6 @@ df = df[df['HS_CODE'].replace('', np.nan).notna()]
 if st.sidebar.button('Predict'):
     model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address, model_uraian, vectorizer_uraian = create_index(df)
     sentence_model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-mpnet-base-v2')
-
-    X = np.array([no_ident, nm_penerima, al_penerima, uraian_barang])
-    if any(len(x.strip()) == 0 for x in X):
-        st.markdown('### All inputs must be non-empty and non-whitespace')
-    else:
         try:
             # Call the find_similar function
             similar_id = find_similar(no_ident, nm_penerima, al_penerima, df, model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address)
