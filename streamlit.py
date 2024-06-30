@@ -13,16 +13,6 @@ df = load_data('data/cn1.csv')
 df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
 df = df[df['HS_CODE'].replace('', np.nan).notna()]
 
-# Define variables for model and vectorizer
-model_ident = None
-vectorizer_ident = None
-model_name = None
-vectorizer_name = None
-model_address = None
-vectorizer_address = None
-model_uraian = None
-vectorizer_uraian = None
-
 # def main ():
     # Title of the app
 st.title('ANALISA JASA TITIPAN')
@@ -85,12 +75,11 @@ if tabs == "Price Range":
     uraian_barang = st.text_input("Uraian Barang")
 
     if st.button('Predict Price Range'):
+        model_uraian, vectorizer_uraian 
         try:
             if model_uraian is None or vectorizer_uraian is None:
                 st.write("Model and vectorizer for description not initialized.")
             else:
-                # Initialize model_uraian and vectorizer_uraian for price range prediction
-                model_uraian, vectorizer_uraian = model_uraian, vectorizer_uraian
                 range_harga = get_range(uraian_barang, df, model_uraian_pred, vectorizer_uraian_pred, sentence_model)
                 st.write(f'Harga kisaran min: {range_harga[0]}')
                 st.write(f'Harga kisaran max: {range_harga[1]}')
