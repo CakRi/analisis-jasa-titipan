@@ -65,6 +65,14 @@ if st.sidebar.button('Predict'):
     except Exception as e:
         st.markdown('### An error occurred during model prediction')
         st.write(str(e))
+
+  tab1, tab2 = st.tabs(["Price Range", "HSCode Search"])
+  tab1.write("Price Range by Description")
+  tab2.write("HS Code Search by Description")
+
+  # You can also use "with" notation untuk mengisi  tab:
+  with tab1:
+     uraian_barang= st.text_input("Uraian Barang"]) 
 # #Price Range
 # st.sidebar.title('Price Range by Description')
 # uraian_barang = st.text_input('Uraian Barang')
