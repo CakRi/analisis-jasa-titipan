@@ -20,8 +20,8 @@ model_name = None
 vectorizer_name = None
 model_address = None
 vectorizer_address = None
-model_uraian = model_uraian
-vectorizer_uraian = vectorizer_uraian
+model_uraian_pred = model_uraian
+vectorizer_uraian_pred = vectorizer_uraian
 
 # def main ():
     # Title of the app
@@ -91,7 +91,7 @@ if tabs == "Price Range":
             else:
                 # Initialize model_uraian and vectorizer_uraian for price range prediction
                 model_uraian, vectorizer_uraian = model_uraian, vectorizer_uraian
-                range_harga = get_range(uraian_barang, df, model_uraian, vectorizer_uraian, sentence_model)
+                range_harga = get_range(uraian_barang, df, model_uraian_pred, vectorizer_uraian_pred, sentence_model)
                 st.write(f'Harga kisaran min: {range_harga[0]}')
                 st.write(f'Harga kisaran max: {range_harga[1]}')
         except Exception as e:
