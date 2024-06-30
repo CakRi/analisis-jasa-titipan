@@ -66,22 +66,24 @@ if st.sidebar.button('Predict'):
         st.markdown('### An error occurred during model prediction')
         st.write(str(e))
 
-tab1, tab2 = st.tabs(["Price Range", "HSCode Search"])
-tab1.write("Price Range by Description")
-tab2.write("HS Code Search by Description")
+# Tabs for additional functionalities
+tabs = st.sidebar.radio("Choose an action:", ["Price Range", "HSCode Search"])
 
-# You can also use "with" notation untuk mengisi  tab:
-with tab1:
- uraian_barang= st.text_input("Uraian Barang") 
-# #Price Range
-# st.sidebar.title('Price Range by Description')
-# uraian_barang = st.text_input('Uraian Barang')
+if tabs == "Price Range":
+    st.subheader("Price Range by Description")
+    uraian_barang = st.text_input("Uraian Barang")
 
-# if st.sidebar.button('Predict'):
-#     range_harga = get_range(uraian_barang, df, model_uraian, vectorizer_uraian, sentence_model)
-#     # print range harga min and max, tuple (min, max)
-#     print(f'Harga kisaran min: {range_harga[0]}')
-#     print(f'Harga kisaran max: {range_harga[1]}')
+    if st.button('Predict Price Range'):
+        try:
+            range_harga = get_range(uraian_barang, df, model_uraian, vectorizer_uraian, sentence_model)
+            st.write(f'Harga kisaran min: {range_harga[0]}')
+            st.write(f'Harga kisaran max: {range_harga[1]}')
+        except Exception as e:
+            st.write(f'Error predicting price range: {str(e)}')
+
+elif tabs == "HSCode Search":
+    st.subheader("HS Code Search by Description")
+    st.write("Insert HS Code search functionality here")
         
 # if __name__ == '__main__':
 #     main()
