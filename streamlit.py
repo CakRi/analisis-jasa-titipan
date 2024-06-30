@@ -20,8 +20,8 @@ model_name = None
 vectorizer_name = None
 model_address = None
 vectorizer_address = None
-model_uraian_pred = model_uraian
-vectorizer_uraian_pred = vectorizer_uraian
+model_uraian_pred = None
+vectorizer_uraian_pred = None
 
 # def main ():
     # Title of the app
