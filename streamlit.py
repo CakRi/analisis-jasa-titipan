@@ -72,7 +72,7 @@ tab2.write("HS Code Search by Description")
 
 # You can also use "with" notation untuk mengisi  tab:
 with tab1:
- uraian_barang= st.text_input("Uraian Barang"]) 
+ uraian_barang= st.text_input("Uraian Barang") 
 # #Price Range
 # st.sidebar.title('Price Range by Description')
 # uraian_barang = st.text_input('Uraian Barang')
