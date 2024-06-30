@@ -76,7 +76,7 @@ if st.sidebar.button('Predict'):
         st.markdown('### An error occurred during model prediction')
         st.write(str(e))
 
-
+       
 # Tabs for additional functionalities
 tabs = st.sidebar.radio("Choose an action:", ["Price Range", "HSCode Search"])
 
@@ -89,6 +89,8 @@ if tabs == "Price Range":
             if model_uraian is None or vectorizer_uraian is None:
                 st.write("Model and vectorizer for description not initialized.")
             else:
+                # Initialize model_uraian and vectorizer_uraian for price range prediction
+                model_uraian, vectorizer_uraian = model_uraian, vectorizer_uraian
                 range_harga = get_range(uraian_barang, df, model_uraian, vectorizer_uraian, sentence_model)
                 st.write(f'Harga kisaran min: {range_harga[0]}')
                 st.write(f'Harga kisaran max: {range_harga[1]}')
