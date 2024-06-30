@@ -52,19 +52,19 @@ df = df[df['HS_CODE'].replace('', np.nan).notna()]
 if st.sidebar.button('Predict'):
     model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address, model_uraian, vectorizer_uraian = create_index(df)
     sentence_model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-mpnet-base-v2')
-        try:
-            # Call the find_similar function
-            similar_id = find_similar(no_ident, nm_penerima, al_penerima, df, model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address)
+    try:
+        # Call the find_similar function
+        similar_id = find_similar(no_ident, nm_penerima, al_penerima, df, model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address)
 
-            # Filter the DataFrame
-            filtered_df = similar_id[similar_id['Similarity (%)'] > 60].head(10)
+        # Filter the DataFrame
+        filtered_df = similar_id[similar_id['Similarity (%)'] > 60].head(10)
 
-            # Display the filtered DataFrame
-            st.markdown(f'### Filtered Similarity Results:')
-            st.write(filtered_df)
-        except Exception as e:
-            st.markdown('### An error occurred during model prediction')
-            st.write(str(e))
+        # Display the filtered DataFrame
+        st.markdown(f'### Filtered Similarity Results:')
+        st.write(filtered_df)
+    except Exception as e:
+        st.markdown('### An error occurred during model prediction')
+        st.write(str(e))
 # #Price Range
 # st.sidebar.title('Price Range by Description')
 # uraian_barang = st.text_input('Uraian Barang')
