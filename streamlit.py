@@ -9,12 +9,9 @@ from hscode_similarity import get_similarity
 from price_range import get_range
 
 # Load data
-filepath_cn = './data/cn1.csv'
-def load_data(filepath_cn):
-    df = load_data(filepath_cn)
-    df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
-    df = df[df['HS_CODE'].replace('', np.nan).notna()]
-    return df
+df = load_data('data/cn1.csv')
+df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+df = df[df['HS_CODE'].replace('', np.nan).notna()]
 
 # def main ():
     # Title of the app
