@@ -1,12 +1,17 @@
-# import function create index from file 1_similar.py
 import streamlit as st
+import numpy as np
+import pandas as pd
+from sentence_transformers import SentenceTransformer
+
+# Import custom functions from your modules
 from create_index import create_index, load_data, find_similar
 from hscode_similarity import get_similarity
-from sentence_transformers import SentenceTransformer
-import pandas as pd
-from hs_risk import get_risk
 from price_range import get_range
-import numpy as np
+
+# Load data
+df = load_data('data/cn1.csv')
+df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+df = df[df['HS_CODE'].replace('', np.nan).notna()]
 
 # def main ():
     # Title of the app
@@ -20,12 +25,12 @@ df = load_data('./data/cn1.csv')
 df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
 df = df[df['HS_CODE'].replace('', np.nan).notna()]
 
-# Function
-## Mencari Kemiripan Importir
-model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address, model_uraian, vectorizer_uraian = create_index(df)
-sentence_model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-mpnet-base-v2')
-similar_id = find_similar(no_ident, nm_penerima, al_penerima, df, model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address)
-similarity_penerima = similar_id[similar_id['Similarity (%)'] > 60].head(10) # get similar_id that Similarity (%) > 0.6   
+# # Function
+# ## Mencari Kemiripan Importir
+# model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address, model_uraian, vectorizer_uraian = create_index(df)
+# sentence_model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-mpnet-base-v2')
+# similar_id = find_similar(no_ident, nm_penerima, al_penerima, df, model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address)
+# similarity_penerima = similar_id[similar_id['Similarity (%)'] > 60].head(10) # get similar_id that Similarity (%) > 0.6   
 
 ## Mencari kesesuaian HS Code dengan Nama Produk
 df_hs = pd.read_csv('./data/hs_code_not_clean_id.csv', dtype=str)
