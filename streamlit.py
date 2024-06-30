@@ -32,6 +32,17 @@ df = load_data('./data/cn1.csv')
 df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
 df = df[df['HS_CODE'].replace('', np.nan).notna()]
 
+# Global variables for models
+model_ident = None
+vectorizer_ident = None
+model_name = None
+vectorizer_name = None
+model_address = None
+vectorizer_address = None
+model_uraian = None
+vectorizer_uraian = None
+sentence_model = None
+
 # Function to initialize models
 def initialize_models():
     global model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address, model_uraian, vectorizer_uraian, sentence_model
