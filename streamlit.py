@@ -43,38 +43,28 @@ nm_penerima = st.sidebar.text_input('NAMA')
 al_penerima = st.sidebar.text_input('ALAMAT PENERIMA')
 uraian_barang = st.sidebar.text_input('URAIAN BARANG')
 
-#Predict button
+# Predict button in sidebar
 if st.sidebar.button('Predict'):
-    # Displaying results
-    st.title('Displaying a Table in Streamlit')
-    st.write('Here is a sample table:')
-    st.table(similarity_penerima)    # Mencari kesesuaian HS Code dengan Nama Produk
-    
-    # Mencari range harga berdasarkan uraian produk
+    model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address, model_uraian, vectorizer_uraian = create_index(df)
+    sentence_model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-mpnet-base-v2')
 
+    X = np.array([no_ident, nm_penerima, al_penerima, uraian_barang_input])
+    if any(len(x.strip()) == 0 for x in X):
+        st.markdown('### All inputs must be non-empty and non-whitespace')
+    else:
+        try:
+            # Call the find_similar function
+            similar_id = find_similar(no_ident, nm_penerima, al_penerima, df, model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address)
 
+            # Filter the DataFrame
+            filtered_df = similar_id[similar_id['Similarity (%)'] > 60].head(10)
 
-    # X = np.array([no_ident, nm_penerima, al_penerima, uraian_barang])
-    # if any(len(x.strip()) == 0 for x in X):
-    #   st.markdown('### All inputs must be non-empty and non-whitespace')
-    # else:
-    #   try:
-    #       # Ensure the input is in the right shape for the model
-    #       input_data = [X]
-
-    #       # Call the find_similar function
-    #       similar_id = find_similar(no_ident, nm_penerima, al_penerima, df, model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address)
-
-    #       # Filter the DataFrame
-    #       filtered_df = similar_id[similar_id['Similarity (%)'] > 60].head(10)
-
-    #       # Display the filtered DataFrame
-    #       st.markdown(f'### Filtered Similarity Results:')
-    #       st.write(filtered_df)
-    #   except Exception as e:
-    #       st.markdown('### An error occurred during model prediction')
-    #       st.write(str(e))
-
+            # Display the filtered DataFrame
+            st.markdown(f'### Filtered Similarity Results:')
+            st.write(filtered_df)
+        except Exception as e:
+            st.markdown('### An error occurred during model prediction')
+            st.write(str(e))
 # #Price Range
 # st.sidebar.title('Price Range by Description')
 # uraian_barang = st.text_input('Uraian Barang')
