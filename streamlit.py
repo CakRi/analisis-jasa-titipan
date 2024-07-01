@@ -49,15 +49,15 @@ def initialize_models():
     model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address, model_uraian, vectorizer_uraian = create_index(df)
     sentence_model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-mpnet-base-v2')
 
-# Function to load HS code data and find similarity
-def load_hs_data(filepath, similar_id):
-    try:
-        df_hs = pd.read_csv(filepath, dtype=str)
-        df_hs_results = get_similarity(similar_id, sentence_model, df_hs)
-        return df_hs_results
-    except Exception as e:
-        st.error(f"Error loading HS code data: {str(e)}")
-        raise
+# # Function to load HS code data and find similarity
+# def load_hs_data(filepath, similar_id):
+#     try:
+#         df_hs = pd.read_csv(filepath, dtype=str)
+#         df_hs_results = get_similarity(similar_id, sentence_model, df_hs)
+#         return df_hs_results
+#     except Exception as e:
+#         st.error(f"Error loading HS code data: {str(e)}")
+#         raise
 # # Function
 # ## Mencari Kemiripan Importir
 # model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address, model_uraian, vectorizer_uraian = create_index(df)
@@ -109,11 +109,10 @@ elif tabs == "HSCode Search":
 
     if st.button('Search HS Code'):
         if sentence_model is None:
-            initialize_models()
+            initialize_models()  # Ensure models are initialized
         try:
-            # Load HS code data
-            df_hs = pd.read_csv('./data/hs_code_not_clean_id.csv', dtype=str)
-            # Find HS code similarity
+            # Debug: Show DataFrame columns to check for HS_CODE column
+            st.write("HS Code DataFrame Columns:", df_hs.columns)  
             hs_code_results = get_similarity(pd.DataFrame([{'Description': uraian_barang_hscode}]), sentence_model, df_hs)
             st.markdown('### HS Code Search Results:')
             st.write(hs_code_results)
