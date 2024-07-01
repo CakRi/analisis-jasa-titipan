@@ -115,9 +115,9 @@ elif tabs == "HSCode Search":
         try:
             # Debug: Show DataFrame columns to check for HS_CODE column
             st.write("HS Code DataFrame Columns:", df_hs.columns)  
-            hs_code_results = get_similarity(pd.DataFrame([{'Description': uraian_barang}]), sentence_model, df_hs)
+            df_hs_results = get_similarity(similar_id, sentence_model, df_hs)
             st.markdown('### HS Code Search Results:')
-            st.write(hs_code_results)
+            st.write(df_hs_results)
         except Exception as e:
             st.error(f'Error searching for HS Code: {str(e)}')
 # if __name__ == '__main__':
