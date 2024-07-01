@@ -113,8 +113,6 @@ elif tabs == "HSCode Search":
         if sentence_model is None:
             initialize_models()  # Ensure models are initialized
         try:
-            # Debug: Show DataFrame columns to check for HS_CODE column
-            st.write("HS Code DataFrame Columns:", df_hs.columns)  
             df_hs_results = get_similarity(similar_id, sentence_model, df_hs)
             st.markdown('### HS Code Search Results:')
             st.write(df_hs_results)
