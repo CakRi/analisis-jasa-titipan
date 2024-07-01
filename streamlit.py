@@ -113,6 +113,7 @@ elif tabs == "HSCode Search":
         if sentence_model is None:
             initialize_models()  # Ensure models are initialized
         try:
+            similar_id = find_similar(no_ident, nm_penerima, al_penerima, df, model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address)
             df_hs_results = get_similarity(similar_id, sentence_model, df_hs)
             st.markdown('### HS Code Search Results:')
             st.write(df_hs_results)
