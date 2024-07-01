@@ -116,8 +116,9 @@ elif tabs == "HSCode Search":
         try:
             similar_id = find_similar(no_ident, nm_penerima, al_penerima, df, model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address)
             df_hs_results = get_similarity(similar_id, sentence_model, df_hs)
+            filtered_df_hs_results = df_hs_results[df_hs_results['similarity'] > 60].head(10)
             st.markdown('### HS Code Search Results:')
-            st.write(df_hs_results)
+            st.write(filtered_df_hs_results)
         except Exception as e:
             st.error(f'Error searching for HS Code: {str(e)}')
 # if __name__ == '__main__':
