@@ -48,6 +48,16 @@ def initialize_models():
     global model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address, model_uraian, vectorizer_uraian, sentence_model
     model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address, model_uraian, vectorizer_uraian = create_index(df)
     sentence_model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-mpnet-base-v2')
+
+# Function to load HS code data and find similarity
+def load_hs_data(filepath, similar_id):
+    try:
+        df_hs = pd.read_csv(filepath, dtype=str)
+        df_hs_results = get_similarity(similar_id, sentence_model, df_hs)
+        return df_hs_results
+    except Exception as e:
+        st.error(f"Error loading HS code data: {str(e)}")
+        raise
 # # Function
 # ## Mencari Kemiripan Importir
 # model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address, model_uraian, vectorizer_uraian = create_index(df)
@@ -95,7 +105,20 @@ if tabs == "Price Range":
 
 elif tabs == "HSCode Search":
     st.subheader("HS Code Search by Description")
-    st.write("Insert HS Code search functionality here")
+    uraian_barang_hscode = st.text_input("Uraian Barang untuk HS Code")
+
+    if st.button('Search HS Code'):
+        if sentence_model is None:
+            initialize_models()
+        try:
+            # Load HS code data
+            df_hs = pd.read_csv('./data/hs_code_not_clean_id.csv', dtype=str)
+            # Find HS code similarity
+            hs_code_results = get_similarity(pd.DataFrame([{'Description': uraian_barang_hscode}]), sentence_model, df_hs)
+            st.markdown('### HS Code Search Results:')
+            st.write(hs_code_results)
+        except Exception as e:
+            st.error(f'Error searching for HS Code: {str(e)}')
 # if __name__ == '__main__':
 #     main()
 
