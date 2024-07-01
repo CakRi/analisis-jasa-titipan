@@ -50,6 +50,7 @@ def initialize_models():
     global model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address, model_uraian, vectorizer_uraian, sentence_model
     model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address, model_uraian, vectorizer_uraian = create_index(df)
     sentence_model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-mpnet-base-v2')
+    similar_id = find_similar(no_ident, nm_penerima, al_penerima, df, model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address)
 
 # # Function to load HS code data and find similarity
 # def load_hs_data(filepath, similar_id):
@@ -80,7 +81,7 @@ def initialize_models():
 if st.sidebar.button('Predict'):
     initialize_models()
     try:
-        similar_id = find_similar(no_ident, nm_penerima, al_penerima, df, model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address)
+        # similar_id = find_similar(no_ident, nm_penerima, al_penerima, df, model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address)
         filtered_df = similar_id[similar_id['Similarity (%)'] > 60].head(10)
         st.markdown('### Filtered Similarity Results:')
         st.write(filtered_df)
@@ -113,7 +114,6 @@ elif tabs == "HSCode Search":
         if sentence_model is None:
             initialize_models()  # Ensure models are initialized
         try:
-            similar_id = find_similar(no_ident, nm_penerima, al_penerima, df, model_ident, vectorizer_ident, model_name, vectorizer_name, model_address, vectorizer_address)
             df_hs_results = get_similarity(similar_id, sentence_model, df_hs)
             st.markdown('### HS Code Search Results:')
             st.write(df_hs_results)
