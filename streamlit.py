@@ -32,6 +32,8 @@ df = load_data('./data/cn1.csv')
 df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
 df = df[df['HS_CODE'].replace('', np.nan).notna()]
 
+df_hs = pd.read_csv('./data/hs_code_not_clean_id.csv', dtype=str)
+
 # Global variables for models
 model_ident = None
 vectorizer_ident = None
@@ -105,7 +107,7 @@ if tabs == "Price Range":
 
 elif tabs == "HSCode Search":
     st.subheader("HS Code Search by Description")
-    uraian_barang_hscode = st.text_input("Uraian Barang untuk HS Code")
+    uraian_barang = st.text_input("Uraian Barang untuk HS Code")
 
     if st.button('Search HS Code'):
         if sentence_model is None:
@@ -113,7 +115,7 @@ elif tabs == "HSCode Search":
         try:
             # Debug: Show DataFrame columns to check for HS_CODE column
             st.write("HS Code DataFrame Columns:", df_hs.columns)  
-            hs_code_results = get_similarity(pd.DataFrame([{'Description': uraian_barang_hscode}]), sentence_model, df_hs)
+            hs_code_results = get_similarity(pd.DataFrame([{'Description': uraian_barang}]), sentence_model, df_hs)
             st.markdown('### HS Code Search Results:')
             st.write(hs_code_results)
         except Exception as e:
